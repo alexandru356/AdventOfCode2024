@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class P1 {
@@ -45,9 +46,10 @@ public class P1 {
 
         int sum = 0;
         for (List<Integer> update : updates) {
-            if (isUpdateValid(update, parsedRules)) {
-                // Get the middle page
-                int middlePage = update.get(update.size() / 2);
+            if (!isUpdateValid(update, parsedRules)) {  
+                List<Integer> sortedUpdate = new ArrayList<>(update);
+                sort(sortedUpdate, parsedRules);
+                int middlePage = sortedUpdate.get(sortedUpdate.size() / 2);
                 sum += middlePage;
             }
         }
@@ -71,4 +73,14 @@ public class P1 {
         }
         return true;
     }
+    private static void sort(List<Integer> update, List<int[]> rules) {
+    Collections.sort(update, (a, b) -> {
+
+        for (int[] rule : rules) {
+            if (rule[0] == a && rule[1] == b) return -1;
+            if (rule[0] == b && rule[1] == a) return 1;
+        }
+        return Integer.compare(b, a); 
+    });
+}
 }
