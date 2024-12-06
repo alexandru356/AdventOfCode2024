@@ -25,7 +25,7 @@ public class P2 {
 
             if (isRules) {
                 rules.add(line);
-            } else {
+            }else {
                 List<Integer> update = new ArrayList<>();
                 for (String s : line.split(",")) {
                     update.add(Integer.parseInt(s));
